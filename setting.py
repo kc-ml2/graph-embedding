@@ -1,0 +1,4 @@
+PROJECT_PATH = "./"
+DATA_PATH = PROJECT_PATH + "data/"
+
+YOUTUBE_DATASET = DATA_PATH + "youtube/"
