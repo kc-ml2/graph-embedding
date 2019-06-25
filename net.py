@@ -2,15 +2,15 @@ import argparse
 import setting
 import torch
 import torch.optim as optim
-from models.model import GCNModel
-from models.model import GCNNet
+from models.GCNmodel import GCNModel
+from models.GCNmodel import GCNNet
 from torch_geometric.datasets import PPI
 import torch.nn.functional as F
 import numpy as np
 from torch_geometric.data import DataLoader
 import time
 import traceback
-import math
+import utils
 
 """
     Train the model
@@ -28,12 +28,13 @@ def train(epoch, batch, model, loss_ft, optimizer):
         elif loss_ft == 'mse':
             loss = F.mse_loss(log_prob, batch.y)
         elif loss_ft == 'bce':
-            loss = F.binary_cross_entropy(F.sigmoid(log_prob), batch.y)
+            log_prob = torch.sigmoid(log_prob)
+            loss = F.binary_cross_entropy(log_prob, batch.y)
         else:
             raise NotImplementedError('Not implemented')
         loss.backward()
         optimizer.step()
-        print("Epoch {:05d} | Loss {:.4f}".format(\
+        print("Epoch {} | Loss {:.4f}".format(\
                 epoch, loss.item()))
     
     except Exception:
@@ -50,13 +51,23 @@ def val(epoch, batch, model, loss_ft):
         elif loss_ft == "mse":
             loss_val = F.mse_loss(log_prob, batch.y)
         elif loss_ft == 'bce':
-            loss_val = F.binary_cross_entropy(F.sigmoid(log_prob), batch.y)
+            log_prob = torch.sigmoid(log_prob)
+            loss_val = F.binary_cross_entropy(log_prob, batch.y)
         else:
             raise NotImplementedError('Not Implemeted')
-        pred = log_prob.max(dim = 1)[0]
-        # correct = float (pred.eq(batch.y).sum().item())
-        # acc = correct / batch.num_nodes
-        acc = 0
+        acc = utils.accuracy(log_prob, batch.y)
+        """
+        log_prob = (log_prob>0.5).float()
+        # print(log_prob)
+        correct = (log_prob == batch.y).float().sum()
+        # print(correct)
+        acc = correct / log_prob.shape[0]
+        """
+        # pred = log_prob.max(dim = 1)[0]
+        # print(pred)
+        #correct = float (pred.eq(batch.y).sum().item())
+        #acc = correct / batch.num_nodes
+        # acc = 0
         print('epoch : {} || loss_val : {:.4f} || Accuracy: {:.4f}'.format(epoch, loss_val, acc))
     except Exception:
         print(traceback.format_exc())

@@ -1,2 +1,2 @@
 from .gcn import *
-from .model import *
+from .GCNmodel import *
