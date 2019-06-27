@@ -5,72 +5,14 @@ import torch.optim as optim
 from models.GCNmodel import GCNModel
 from models.GCNmodel import GCNNet
 from torch_geometric.datasets import PPI
+from torch_geometric.datasets import CoMA
+from torch_geometric.datasets import Planetoid
 import torch.nn.functional as F
 import numpy as np
 from torch_geometric.data import DataLoader
 import time
 import traceback
 import utils
-
-"""
-    Train the model
-"""
-
-def train(epoch, batch, model, loss_ft, optimizer):
-    model.train()
-    optimizer.zero_grad()
-    log_prob = model(batch.x, batch.edge_index)
-    try:
-        if loss_ft == 'nll':
-            loss = F.nll_loss(log_prob, batch.y.long())
-        elif loss_ft == 'cross_entropy':
-            loss = F.cross_entropy(log_prob, batch.y.long())
-        elif loss_ft == 'mse':
-            loss = F.mse_loss(log_prob, batch.y)
-        elif loss_ft == 'bce':
-            log_prob = torch.sigmoid(log_prob)
-            loss = F.binary_cross_entropy(log_prob, batch.y)
-        else:
-            raise NotImplementedError('Not implemented')
-        loss.backward()
-        optimizer.step()
-        print("Epoch {} | Loss {:.4f}".format(\
-                epoch, loss.item()))
-    
-    except Exception:
-        print(traceback.format_exc())
-
-def val(epoch, batch, model, loss_ft):
-    model.eval()
-    log_prob = model(batch.x, batch.edge_index)
-    try:
-        if loss_ft == "nll":
-            loss_val = F.nll_loss(log_prob, batch.y.long())
-        elif loss_ft == "cross_entropy":
-            loss_val = F.cross_entropy(log_prob, batch.y.long())
-        elif loss_ft == "mse":
-            loss_val = F.mse_loss(log_prob, batch.y)
-        elif loss_ft == 'bce':
-            log_prob = torch.sigmoid(log_prob)
-            loss_val = F.binary_cross_entropy(log_prob, batch.y)
-        else:
-            raise NotImplementedError('Not Implemeted')
-        acc = utils.accuracy(log_prob, batch.y)
-        """
-        log_prob = (log_prob>0.5).float()
-        # print(log_prob)
-        correct = (log_prob == batch.y).float().sum()
-        # print(correct)
-        acc = correct / log_prob.shape[0]
-        """
-        # pred = log_prob.max(dim = 1)[0]
-        # print(pred)
-        #correct = float (pred.eq(batch.y).sum().item())
-        #acc = correct / batch.num_nodes
-        # acc = 0
-        print('epoch : {} || loss_val : {:.4f} || Accuracy: {:.4f}'.format(epoch, loss_val, acc))
-    except Exception:
-        print(traceback.format_exc())
 
 """
     function that run network and learn
@@ -86,50 +28,162 @@ def run_network(args):
     cuda = args.cuda    
     device = torch.device('cuda' if cuda else 'cpu')
 
+    # settings from args
+    np.random.seed(args.seed); torch.manual_seed(args.seed);
+    device = torch.device('cuda' if cuda else 'cpu');
+    model = args.model; hidden = args.hidden; dropout = args.dropout;
+    lr = args.lr; weight_decay = args.weight_decay; loss_ft = args.loss_ft
+    epochs = args.epochs; data_name = args.data
+
     try:
         # No data Implemented yet
-        if args.data == 'default':
+        if data_name == 'PPI':
             train_dataset = PPI(root = setting.DATA_PATH, split = "train")
             val_dataset = PPI(root = setting.DATA_PATH, split = "val")
+            test_dataset = PPI(root = setting.DATA_PATH, split = "test")
+
+        elif data_name == 'Cora':
+            train_dataset = Planetoid(setting.DATA_PATH, name = 'Cora')
+            val_dataset = train_dataset
+            test_dataset = train_dataset
+
         else:
             # TODO: Implement the GraphDB Pt
             raise IOError('No Data')
-        # load data
-        train_loader = DataLoader(train_dataset, batch_size = 2, shuffle=True)
-        val_loader = DataLoader(val_dataset, batch_size = 2, shuffle = True)
-        print("read Success")
 
-        # settings from args
-        np.random.seed(args.seed); torch.manual_seed(args.seed);
-        device = torch.device('cuda' if cuda else 'cpu');
-        model = args.model; hidden = args.hidden; dropout = args.dropout;
-        lr = args.lr; weight_decay = args.weight_decay; loss_ft = args.loss_ft
+        if model == "GCN":
+            model_running = GCNNet(in_features = train_dataset.num_features,\
+                num_hidden = hidden, out_class = train_dataset.num_classes).to(device)
+        else:
+            raise NotImplementedError('Not Implemented!')
+
+        # load data
+        train_loader = DataLoader(train_dataset, batch_size = 1, shuffle=True)
+        val_loader = DataLoader(val_dataset, batch_size = 1, shuffle = True)
+
+        #determine whether data is all full or splitted
+        isfull = (train_dataset == val_dataset)
+
+        print("read Success")
 
         # train model
         start_time = time.time()
+        """
         if model == "GCN":
-            model_running = GCNNet(in_features = train_dataset.num_features, num_hidden = hidden, out_class = train_dataset.num_classes).to(device)
-            #model_running = GCNModel(in_features = train_dataset.num_features, num_hidden = hidden, out_class = train_dataset.num_classes\
-            #    , dropout = dropout).to(device)
+            model_running = GCNNet(in_features = train_dataset.num_features,\
+                 num_hidden = hidden, out_class = train_dataset.num_classes).to(device)
         else:
             raise NotImplementedError('Not Implemented!')
+        """
 
         # set optimizer
         optimizer = optim.Adam(params = model_running.parameters(), lr = lr, weight_decay = weight_decay)
 
-        for epoch in range(args.epochs):
+        for epoch in range(epochs):
+
+            # train
             for train_batch in train_loader:
+                train_batch.to(device)
                 train(epoch = epoch, batch = train_batch, model = model_running,\
-                     loss_ft = loss_ft, optimizer = optimizer)
+                     loss_ft = loss_ft, optimizer = optimizer, is_full_data = isfull)
+
+            # val
             for val_batch in val_loader:
-                val(epoch = epoch, batch = val_batch, model = model_running, loss_ft = loss_ft)
+                val_batch.to(device)
+                val(epoch = epoch, batch = val_batch, model = model_running, loss_ft = loss_ft, is_full_data = isfull)
 
         print("Optimization Finished!")
         print("Total time elapsed: {:.4f}s".format(time.time() - start_time))
+
+        # test
+        
+        test(model = model_running, test_data = test_dataset, device = device)
         print("done!")
 
     except Exception:
         print(traceback.format_exc())
+
+"""
+    Train the model
+"""
+
+def train(epoch, batch, model, loss_ft, optimizer, is_full_data = False):
+    model.train()
+    optimizer.zero_grad()
+    # run model
+    log_prob = model(batch.x, batch.edge_index)
+    
+    if is_full_data:
+        log_prob = log_prob[batch.train_mask]
+        label = batch.y[batch.train_mask]
+    else:
+        label = batch.y
+    try:
+        if loss_ft == 'nll':
+            loss = F.nll_loss(log_prob, label.long())
+        elif loss_ft == 'cross_entropy':
+            loss = F.cross_entropy(log_prob, label.long())
+        elif loss_ft == 'mse':
+            loss = F.mse_loss(log_prob, label)
+        elif loss_ft == 'bce':
+            log_prob = torch.exp(log_prob)
+            loss = F.binary_cross_entropy(log_prob, label)
+        else:
+            raise NotImplementedError('Not implemented')
+        loss.backward()
+        optimizer.step()
+        print("Epoch {} | Loss {:.4f}".format(\
+                epoch, loss.item()))
+    
+    except Exception:
+        print(traceback.format_exc())
+
+def val(epoch, batch, model, loss_ft, is_full_data = False):
+    model.eval()
+    # put into model
+    log_prob = model(batch.x, batch.edge_index)
+    if is_full_data:
+        log_prob = log_prob[batch.train_mask]
+        label = batch.y[batch.train_mask]
+    else:
+        label = batch.y
+    try:
+        if loss_ft == "nll":
+            loss_val = F.nll_loss(log_prob, label.long())
+        elif loss_ft == "cross_entropy":
+            loss_val = F.cross_entropy(log_prob, label.long())
+        elif loss_ft == "mse":
+            loss_val = F.mse_loss(log_prob, label)
+        elif loss_ft == 'bce':
+            log_prob = torch.exp(log_prob)
+            loss_val = F.binary_cross_entropy(log_prob, label)
+        else:
+            raise NotImplementedError('Not Implemeted')
+        print(log_prob.shape)
+        print(label.shape)
+        acc = utils.accuracy(log_prob, label)
+        #acc = 0
+        print('epoch : {} || loss_val : {:.4f} || Accuracy: {:.4f}'.format(epoch, loss_val, acc))
+    except Exception:
+        print(traceback.format_exc())
+
+def test(model, test_data, device):
+
+    # merge test data / model data
+    output = []
+    label = []
+    for data in test_data:
+        data.to(device)
+        log_p = model(data.x, data.edge_index)
+        output.append(log_p)
+        label.append(data.y)
+    result = torch.cat(output, dim = 0)
+    answer = torch.cat(label, dim = 0)
+    result = torch.sigmoid(result)
+    
+    # calculate accuracy
+    acc = utils.accuracy(result, answer)
+    print("Final Accuracy is = {}".format(acc))
 
 """
 
@@ -149,4 +203,3 @@ def run_network(args):
             for valid_batch in loader2:
                 ...
 """
-

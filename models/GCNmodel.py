@@ -8,7 +8,7 @@ from torch_geometric.nn import GCNConv as GCN_lib
 """
 
 class GCNNet(nn.Module):
-    def __init__(self, in_features, num_hidden, out_class):
+    def __init__(self, in_features: int, num_hidden: int, out_class: int):
         super(GCNNet, self).__init__()
         self.conv1 = GCN_lib(in_features, num_hidden)
         self.conv2 = GCN_lib(num_hidden, out_class)
