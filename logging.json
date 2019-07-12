@@ -1,0 +1,88 @@
+{
+    "version": 1,
+    "formatters": {
+        "simple": {
+            "format": "[%(name)s|%(levelname)s] %(asctime)s > %(message)s"
+        }
+    },
+
+    "handlers": {
+        "RootConsole": {
+            "class": "logging.StreamHandler",
+            "level": "INFO",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout"
+        },
+
+        "RootFileHandler": {
+            "class": "logging.FileHandler",
+            "level": "INFO",
+            "formatter": "simple",
+            "filename": "logs/info.log"
+        },
+
+        "TrainConsole": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout"
+        },
+
+        "TrainFileHandler": {
+            "class": "logging.FileHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "filename": "logs/info.log"
+        },
+
+        "ValConsole": {
+            "class": "logging.StreamHandler",
+            "level": "TRAIN",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout"
+        },
+
+        "ValFileHandler": {
+            "class": "logging.FileHandler",
+            "level": "TRAIN",
+            "formatter": "simple",
+            "filename": "logs/info.log"
+        }, 
+
+        "TestConsole": {
+            "class": "logging.StreamHandler",
+            "level": "VAL",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout"
+        },
+
+        "TestFileHandler": {
+            "class": "logging.FileHandler",
+            "level": "VAL",
+            "formatter": "simple",
+            "filename": "logs/info.log"
+        }
+    },
+
+    "loggers": {
+        "root": {
+            "level": "DEBUG",
+            "handlers": ["RootConsole", "RootFileHandler"]
+        },
+        "Train": {
+            "level": "DEBUG",
+            "handlers": ["TrainConsole", "TrainFileHandler"],
+            "propagate": "no"
+        },
+        "Val": {
+            "level": "TRAIN",
+            "handlers": ["ValConsole", "ValFileHandler"],
+            "propagate": "no"
+        },
+        "Test": {
+            "level": "VAL",
+            "handlers": ["TestConsole", "TestFileHandler"],
+            "propagate": "no"
+        }
+    }
+}

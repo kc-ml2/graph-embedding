@@ -2,53 +2,65 @@ import torch
 from torch_geometric.data import Data
 import numpy as np
 import torch_geometric.utils
-import networkx as nx
 import torch
 from torch_geometric.nn import MessagePassing
 from torch_geometric.utils import add_self_loops, degree
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.nn.parameter import Parameter
+from utils.utils import edge_to_adj
+import math
+import pdb
 
 """
     Unweighted Matrix Only!!
+    In order to weighted martrix, fix utils.utils.edge_to_adj
 """
 
-class GCNConv(MessagePassing):
-    def __init__(self, in_channels, out_channels):
-        super(GCNConv, self).__init__(aggr='add')  # "Add" aggregation.
-        self.lin = torch.nn.Linear(in_channels, out_channels)
+"""
+    Implementation based on the code of Kipf
+    "https://github.com/tkipf/pygcn"
+    changed the part which receive the edge_index and convert to the adj matrix
+    Deal with large graphs by using Sparse matrix in Scipy
+"""
 
-    def forward(self, x, edge_index):
-        # x has shape [N, in_channels]
-        # edge_index has shape [2, E]
+class GCNConv(nn.Module):
 
-        # Step 1: Add self-loops to the adjacency matrix.
-        # hat{A} = A + I
-        # Now, hat[edge_index}
-        edge_index, _ = add_self_loops(edge_index, num_nodes=x.size(0))
+    def __init__(self, in_channels, out_channels, bias = True):
+        super().__init__()
 
-        # Step 2: Linearly transform node feature matrix.
-        # (H_l * W)
-        x = self.lin(x)
+        # in, out, bias, weight dim
+        self.in_channels = in_channels
+        self.out_channels = out_channels
+        self.weight = Parameter(torch.Tensor(in_channels, out_channels))
+        if bias:
+            self.bias = Parameter(torch.Tensor(out_channels))
+        else:
+            self.register_parameter('bias', None)
+        self.reset_parameters()
+    
+    # Normalize
+    def reset_parameters(self):
+        stdv = 1. / math.sqrt(self.weight.size(1))
+        self.weight.data.uniform_(-stdv, stdv)
+        if self.bias is not None:
+            self.bias.data.uniform_(-stdv, stdv)
 
-        # Step 3-5: Start propagating messages.
-        # x.size(0) = num of nodes
-        return self.propagate(edge_index, size=(x.size(0), x.size(0)), x=x)
+    def forward(self, input, edge_index):
+        # X * W
+        support = torch.mm(input, self.weight)
+        # Get adjacency matrix
+        # Parsing A to hat{A} is conducted inside the edge_to_adj
+        adj = edge_to_adj(input, edge_index)
+        # FIXME: to get the config from args
+        if torch.cuda.is_available:
+            adj = adj.cuda()
+        # hat{A} * (X * W)
+        output = torch.spmm(adj, support)
+        pdb.set_trace()
 
-    def message(self, x_j, edge_index, size):
-        # x_j has shape [E, out_channels]
-
-        # Step 3: Normalize node features.
-        row, col = edge_index
-        #print(row)
-        #print(size[0])
-        #print(col)
-        deg = degree(row, size[0], dtype=x_j.dtype)
-        deg_inv_sqrt = deg.pow(-0.5)
-        norm = deg_inv_sqrt[row] * deg_inv_sqrt[col]
-
-        return norm.view(-1, 1) * x_j
-
-    def update(self, aggr_out):
-        # aggr_out has shape [N, out_channels]
-
-        # Step 5: Return new node embeddings.
-        return aggr_out
+        # hat{A} * (X * W) + B
+        if self.bias is not None:
+            return (output + self.bias)
+        else:
+            return output

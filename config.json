@@ -1,17 +1,34 @@
 {
     "DEFAULT": {
       "cuda": true,
-      "fastmode" : true,
       "seed": 42,
       "epochs": 50,
       "lr": 0.01,
       "loss_ft": "nll",
-      "L1_regular" : false,
       "weight_decay": 5e-4,
-      "hidden": 16,
-      "dropout": 0.7,
+      "dim_hidden": 16,
+      "n_hidden_layer": 2,
+      "batch_size": 1,
+      "bias": true,
       "data": "Cora",
-      "model": "GCN"
+      "model": "GCN",
+      "use_package_implementation": true
+    },
+
+    "RELEASE": {
+      "cuda": true,
+      "seed": 42,
+      "epochs": 50,
+      "lr": 0.01,
+      "loss_ft": "nll",
+      "weight_decay": 5e-4,
+      "dim_hidden": 16,
+      "n_hidden_layer": 2,
+      "batch_size": 1,
+      "bias": true,
+      "data": "Cora",
+      "model": "GCN",
+      "use_package_implementation": true
     }
 }
   
