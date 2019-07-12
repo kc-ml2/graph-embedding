@@ -18,17 +18,17 @@
     "RELEASE": {
       "cuda": true,
       "seed": 42,
-      "epochs": 100,
+      "epochs": 25,
       "lr": 0.01,
-      "loss_ft": "bce",
+      "loss_ft": "nll",
       "weight_decay": 5e-4,
       "dim_hidden": 16,
-      "n_hidden_layer": 9,
+      "n_hidden_layer": 2,
       "batch_size": 1,
       "bias": true,
-      "data": "PPI",
+      "data": "Cora",
       "model": "GCN",
-      "use_package_implementation": true
+      "use_package_implementation": false
     }
 }
   

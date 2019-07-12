@@ -29,7 +29,7 @@ class GCNNet(nn.Module):
             self.inner_conv = GCN_lib(dim_hidden, dim_hidden, bias = bias)
         else:
             self.conv1 = GCNConv(in_features, dim_hidden, bias = bias)
-            self.conv1 = GCNConv(dim_hidden, out_class, bias = bias)
+            self.conv2 = GCNConv(dim_hidden, out_class, bias = bias)
             self.inner_conv = GCNConv(dim_hidden, dim_hidden, bias = bias)
         self.n_hidden_layer = n_hidden_layer
 

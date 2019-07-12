@@ -44,6 +44,7 @@ def run_network(args, logger):
     try:
         # Only internal datasets of pyG are available currently
         if data_name == 'PPI':
+            assert loss_ft == 'bce', "PPI only works with bce loss"
             train_dataset = PPI(root = setting.DATA_PATH, split = "train")
             val_dataset = PPI(root = setting.DATA_PATH, split = "val")
             test_dataset = PPI(root = setting.DATA_PATH, split = "test")

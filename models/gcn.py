@@ -27,7 +27,7 @@ import pdb
 class GCNConv(nn.Module):
 
     def __init__(self, in_channels, out_channels, bias = True):
-        super().__init__()
+        super(GCNConv, self).__init__()
 
         # in, out, bias, weight dim
         self.in_channels = in_channels
@@ -57,7 +57,6 @@ class GCNConv(nn.Module):
             adj = adj.cuda()
         # hat{A} * (X * W)
         output = torch.spmm(adj, support)
-        pdb.set_trace()
 
         # hat{A} * (X * W) + B
         if self.bias is not None:
