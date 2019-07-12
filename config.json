@@ -12,7 +12,8 @@
       "bias": true,
       "data": "Cora",
       "model": "GCN",
-      "use_package_implementation": true
+      "use_package_implementation": true,
+      "logger_option": "Train"
     },
 
     "RELEASE": {
@@ -28,7 +29,8 @@
       "bias": true,
       "data": "Cora",
       "model": "GCN",
-      "use_package_implementation": false
+      "use_package_implementation": false,
+      "logger_option": "Train"
     }
 }
   

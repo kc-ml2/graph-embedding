@@ -6,14 +6,6 @@ from utils import logger
 import pdb
 
 def main():
-
-    #Setting the Logger
-    Logger = logger.Logger()
-    Logger.add_level("TRAIN", 11)
-    Logger.add_level("VAL", 12)
-    Logger.add_level("TEST", 13)
-    with open('logging.json', 'rt') as f:
-        Logger.read_json(json.load(f), "Train")
     
     # Read argument
     parser = argparse.ArgumentParser()
@@ -47,6 +39,14 @@ def main():
         config = json.load(f)
     for key, item in config['RELEASE'].items():
         setattr(args, key, item)
+
+    #Setting the Logger
+    Logger = logger.Logger()
+    Logger.add_level("TRAIN", 11)
+    Logger.add_level("VAL", 12)
+    Logger.add_level("TEST", 13)
+    with open('logging.json', 'rt') as f:
+        Logger.read_json(json.load(f), args.logger_option)
 
     # part where actually run the network
     run_network(args, Logger)

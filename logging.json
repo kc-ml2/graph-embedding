@@ -37,28 +37,28 @@
 
         "ValConsole": {
             "class": "logging.StreamHandler",
-            "level": "TRAIN",
+            "level": "VAL",
             "formatter": "simple",
             "stream": "ext://sys.stdout"
         },
 
         "ValFileHandler": {
             "class": "logging.FileHandler",
-            "level": "TRAIN",
+            "level": "VAL",
             "formatter": "simple",
             "filename": "logs/info.log"
         }, 
 
         "TestConsole": {
             "class": "logging.StreamHandler",
-            "level": "VAL",
+            "level": "TEST",
             "formatter": "simple",
             "stream": "ext://sys.stdout"
         },
 
         "TestFileHandler": {
             "class": "logging.FileHandler",
-            "level": "VAL",
+            "level": "TEST",
             "formatter": "simple",
             "filename": "logs/info.log"
         }
@@ -70,18 +70,18 @@
             "handlers": ["RootConsole", "RootFileHandler"]
         },
         "Train": {
-            "level": "DEBUG",
+            "level": "TRAIN",
             "handlers": ["TrainConsole"],
             "propagate": "no"
         },
         "Val": {
-            "level": "TRAIN",
-            "handlers": ["ValConsole", "ValFileHandler"],
+            "level": "VAL",
+            "handlers": ["ValConsole"],
             "propagate": "no"
         },
         "Test": {
-            "level": "VAL",
-            "handlers": ["TestConsole", "TestFileHandler"],
+            "level": "TEST",
+            "handlers": ["TestConsole"],
             "propagate": "no"
         }
     }

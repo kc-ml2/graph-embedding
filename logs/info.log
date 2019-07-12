@@ -326,3 +326,58 @@
     "cannot assign module before Module.__init__() call")
 AttributeError: cannot assign module before Module.__init__() call
 [0m
+[Val|INFO] 2019-07-12 22:27:55,642 > [37mRead Success![0m
+[Val|TRAIN] 2019-07-12 22:27:56,231 > [37mEpoch 0 | Loss 1.9708[0m
+[Val|VAL] 2019-07-12 22:27:56,278 > [37mepoch : 0 || loss_val : 1.8740 || Accuracy: 0.3000[0m
+[Val|TRAIN] 2019-07-12 22:27:56,315 > [37mEpoch 1 | Loss 1.8683[0m
+[Val|VAL] 2019-07-12 22:27:56,347 > [37mepoch : 1 || loss_val : 1.7839 || Accuracy: 0.4786[0m
+[Val|TRAIN] 2019-07-12 22:27:56,384 > [37mEpoch 2 | Loss 1.8131[0m
+[Val|VAL] 2019-07-12 22:27:56,414 > [37mepoch : 2 || loss_val : 1.6905 || Accuracy: 0.6429[0m
+[Val|TRAIN] 2019-07-12 22:27:56,448 > [37mEpoch 3 | Loss 1.6819[0m
+[Val|VAL] 2019-07-12 22:27:56,477 > [37mepoch : 3 || loss_val : 1.5876 || Accuracy: 0.7214[0m
+[Val|TRAIN] 2019-07-12 22:27:56,510 > [37mEpoch 4 | Loss 1.6338[0m
+[Val|VAL] 2019-07-12 22:27:56,540 > [37mepoch : 4 || loss_val : 1.4781 || Accuracy: 0.8000[0m
+[Val|TRAIN] 2019-07-12 22:27:56,577 > [37mEpoch 5 | Loss 1.5069[0m
+[Val|VAL] 2019-07-12 22:27:56,607 > [37mepoch : 5 || loss_val : 1.3642 || Accuracy: 0.8357[0m
+[Val|TRAIN] 2019-07-12 22:27:56,642 > [37mEpoch 6 | Loss 1.4199[0m
+[Val|VAL] 2019-07-12 22:27:56,671 > [37mepoch : 6 || loss_val : 1.2488 || Accuracy: 0.8643[0m
+[Val|TRAIN] 2019-07-12 22:27:56,706 > [37mEpoch 7 | Loss 1.2781[0m
+[Val|VAL] 2019-07-12 22:27:56,734 > [37mepoch : 7 || loss_val : 1.1339 || Accuracy: 0.8857[0m
+[Val|TRAIN] 2019-07-12 22:27:56,769 > [37mEpoch 8 | Loss 1.1542[0m
+[Val|VAL] 2019-07-12 22:27:56,797 > [37mepoch : 8 || loss_val : 1.0200 || Accuracy: 0.9143[0m
+[Val|TRAIN] 2019-07-12 22:27:56,831 > [37mEpoch 9 | Loss 1.0354[0m
+[Val|VAL] 2019-07-12 22:27:56,861 > [37mepoch : 9 || loss_val : 0.9089 || Accuracy: 0.9500[0m
+[Val|TRAIN] 2019-07-12 22:27:56,894 > [37mEpoch 10 | Loss 0.9801[0m
+[Val|VAL] 2019-07-12 22:27:56,971 > [37mepoch : 10 || loss_val : 0.8010 || Accuracy: 0.9500[0m
+[Val|TRAIN] 2019-07-12 22:27:57,006 > [37mEpoch 11 | Loss 0.8740[0m
+[Val|VAL] 2019-07-12 22:27:57,036 > [37mepoch : 11 || loss_val : 0.6990 || Accuracy: 0.9643[0m
+[Val|TRAIN] 2019-07-12 22:27:57,070 > [37mEpoch 12 | Loss 0.7546[0m
+[Val|VAL] 2019-07-12 22:27:57,098 > [37mepoch : 12 || loss_val : 0.6049 || Accuracy: 0.9786[0m
+[Val|TRAIN] 2019-07-12 22:27:57,132 > [37mEpoch 13 | Loss 0.6752[0m
+[Val|VAL] 2019-07-12 22:27:57,161 > [37mepoch : 13 || loss_val : 0.5203 || Accuracy: 0.9786[0m
+[Val|TRAIN] 2019-07-12 22:27:57,195 > [37mEpoch 14 | Loss 0.6001[0m
+[Val|VAL] 2019-07-12 22:27:57,224 > [37mepoch : 14 || loss_val : 0.4455 || Accuracy: 0.9786[0m
+[Val|TRAIN] 2019-07-12 22:27:57,259 > [37mEpoch 15 | Loss 0.5621[0m
+[Val|VAL] 2019-07-12 22:27:57,288 > [37mepoch : 15 || loss_val : 0.3808 || Accuracy: 0.9786[0m
+[Val|TRAIN] 2019-07-12 22:27:57,322 > [37mEpoch 16 | Loss 0.5271[0m
+[Val|VAL] 2019-07-12 22:27:57,350 > [37mepoch : 16 || loss_val : 0.3248 || Accuracy: 0.9786[0m
+[Val|TRAIN] 2019-07-12 22:27:57,384 > [37mEpoch 17 | Loss 0.4195[0m
+[Val|VAL] 2019-07-12 22:27:57,414 > [37mepoch : 17 || loss_val : 0.2765 || Accuracy: 0.9857[0m
+[Val|TRAIN] 2019-07-12 22:27:57,447 > [37mEpoch 18 | Loss 0.3801[0m
+[Val|VAL] 2019-07-12 22:27:57,476 > [37mepoch : 18 || loss_val : 0.2352 || Accuracy: 0.9929[0m
+[Val|TRAIN] 2019-07-12 22:27:57,511 > [37mEpoch 19 | Loss 0.3158[0m
+[Val|VAL] 2019-07-12 22:27:57,539 > [37mepoch : 19 || loss_val : 0.2004 || Accuracy: 0.9929[0m
+[Val|TRAIN] 2019-07-12 22:27:57,573 > [37mEpoch 20 | Loss 0.3113[0m
+[Val|VAL] 2019-07-12 22:27:57,603 > [37mepoch : 20 || loss_val : 0.1712 || Accuracy: 0.9929[0m
+[Val|TRAIN] 2019-07-12 22:27:57,638 > [37mEpoch 21 | Loss 0.2543[0m
+[Val|VAL] 2019-07-12 22:27:57,666 > [37mepoch : 21 || loss_val : 0.1468 || Accuracy: 0.9929[0m
+[Val|TRAIN] 2019-07-12 22:27:57,701 > [37mEpoch 22 | Loss 0.2139[0m
+[Val|VAL] 2019-07-12 22:27:57,730 > [37mepoch : 22 || loss_val : 0.1268 || Accuracy: 0.9929[0m
+[Val|TRAIN] 2019-07-12 22:27:57,763 > [37mEpoch 23 | Loss 0.2147[0m
+[Val|VAL] 2019-07-12 22:27:57,793 > [37mepoch : 23 || loss_val : 0.1099 || Accuracy: 1.0000[0m
+[Val|TRAIN] 2019-07-12 22:27:57,827 > [37mEpoch 24 | Loss 0.1922[0m
+[Val|VAL] 2019-07-12 22:27:57,857 > [37mepoch : 24 || loss_val : 0.0954 || Accuracy: 1.0000[0m
+[Val|INFO] 2019-07-12 22:27:57,858 > [37mOptimization Finished![0m
+[Val|INFO] 2019-07-12 22:27:57,858 > [37mTotal time elapsed: 2.2154s[0m
+[Val|TEST] 2019-07-12 22:27:57,885 > [37mFinal Accuracy is = 0.8245937961595273[0m
+[Val|INFO] 2019-07-12 22:27:57,885 > [37mDone![0m
