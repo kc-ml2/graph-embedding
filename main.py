@@ -45,7 +45,7 @@ def main():
     # Read config written by json file
     with open('config.json', 'r') as f:
         config = json.load(f)
-    for key, item in config['DEFAULT'].items():
+    for key, item in config['RELEASE'].items():
         setattr(args, key, item)
 
     # part where actually run the network

@@ -2,6 +2,7 @@ import os.path
 from pathlib import Path
 from datetime import datetime
 
+# Folders to manage
 PROJECT_PATH = Path(__file__).resolve().parent.as_posix()
 DATA_PATH = os.path.join(PROJECT_PATH, "data")
 

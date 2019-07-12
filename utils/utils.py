@@ -10,9 +10,11 @@ import torch
 """
 
 def accuracy(log_prob, labels):
-    if log_prob.shape == labels.shape: 
-        pred = (log_prob>0.5).float()
-        print(pred[pred > 0])
+    if log_prob.shape == labels.shape:
+        # print(log_prob) 
+        pred = (log_prob > 0.5).float()
+        #pdb.set_trace()
+        # print(pred[pred > 0])
         #print(pred)
         correct = (pred == labels).float().sum()
     else:

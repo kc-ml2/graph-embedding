@@ -2,7 +2,6 @@ import argparse
 import setting
 import torch
 import torch.optim as optim
-from models.GCNmodel import GCNModel
 from models.GCNmodel import GCNNet
 from torch_geometric.datasets import PPI
 from torch_geometric.datasets import CoMA
@@ -41,8 +40,9 @@ def run_network(args, logger):
     use_package = args.use_package_implementation
     del args
 
+    # Read the Data
     try:
-        # Only internal datasets are available currently
+        # Only internal datasets of pyG are available currently
         if data_name == 'PPI':
             train_dataset = PPI(root = setting.DATA_PATH, split = "train")
             val_dataset = PPI(root = setting.DATA_PATH, split = "val")
@@ -76,14 +76,15 @@ def run_network(args, logger):
         # determine whether train and val splitted.
         isfull = (train_dataset == val_dataset)
 
+        # Print the process
         logger.log("Read Success!", "INFO")
 
-        # train model
+        # Training and Validation Start
         start_time = time.time()
-
         # set optimizer
         optimizer = optim.Adam(params = model_running.parameters(), lr = lr, weight_decay = weight_decay)
 
+        # Loop the epoch
         for epoch in range(epochs):
 
             # train
@@ -98,10 +99,11 @@ def run_network(args, logger):
                 val(epoch = epoch, batch = val_batch, model = model_running, \
                     loss_ft = loss_ft, logger = logger, is_full_data = isfull)
 
+        # Finish the Model Training
         logger.log("Optimization Finished!", "INFO")
         logger.log("Total time elapsed: {:.4f}s".format(time.time() - start_time), "INFO")
 
-        # test
+        # Test
         test(model = model_running, test_data = test_dataset, device = device, logger = logger)
         logger.log("Done!", 'INFO')
 
@@ -151,6 +153,10 @@ def train(epoch, batch, model, loss_ft, optimizer, logger, is_full_data = False)
     except Exception:
         logger.log(traceback.format_exc(), "ERROR")
 
+"""
+    Validate the Model
+"""
+
 def val(epoch, batch, model, loss_ft, logger, is_full_data = False):
     model.eval()
     # put into model
@@ -178,11 +184,14 @@ def val(epoch, batch, model, loss_ft, logger, is_full_data = False):
             raise NotImplementedError('Not Implemeted')
         # Calculate accuracy
         acc = utils.accuracy(log_prob, label)
+        # pdb.set_trace()
         logger.log('epoch : {} || loss_val : {:.4f} || Accuracy: {:.4f}'.format(epoch, loss_val, acc), "VAL")
     except Exception:
         logger.log(traceback.format_exc(), "ERROR")
 
-# Not completely organized yet
+"""
+    Test the Model
+"""
 def test(model, test_data, device, logger):
 
     # merge test data & model data

@@ -1,0 +1,12 @@
+# Ignore log file
+*.log
+
+# Ignore data
+/processed
+/raw
+/youtube
+
+# Ignore some uncompleted python file
+dataloader.py
+tmp.py
+test.py

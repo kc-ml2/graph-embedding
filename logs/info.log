@@ -212,3 +212,117 @@
 [Train|INFO] 2019-07-12 10:52:32,339 > [37mTotal time elapsed: 1.0326s[0m
 [Train|TEST] 2019-07-12 10:52:32,344 > [37mFinal Accuracy is = 0.80096011816839[0m
 [Train|INFO] 2019-07-12 10:52:32,344 > [37mDone![0m
+[Train|INFO] 2019-07-12 16:08:31,381 > [37mRead Success![0m
+[Train|TRAIN] 2019-07-12 16:08:31,645 > [37mEpoch 0 | Loss 1.9469[0m
+[Train|VAL] 2019-07-12 16:08:31,668 > [37mepoch : 0 || loss_val : 1.9278 || Accuracy: 0.2214[0m
+[Train|TRAIN] 2019-07-12 16:08:31,682 > [37mEpoch 1 | Loss 1.9311[0m
+[Train|VAL] 2019-07-12 16:08:31,696 > [37mepoch : 1 || loss_val : 1.8993 || Accuracy: 0.2571[0m
+[Train|TRAIN] 2019-07-12 16:08:31,710 > [37mEpoch 2 | Loss 1.8990[0m
+[Train|VAL] 2019-07-12 16:08:31,718 > [37mepoch : 2 || loss_val : 1.8602 || Accuracy: 0.2071[0m
+[Train|TRAIN] 2019-07-12 16:08:31,730 > [37mEpoch 3 | Loss 1.8633[0m
+[Train|VAL] 2019-07-12 16:08:31,738 > [37mepoch : 3 || loss_val : 1.8121 || Accuracy: 0.2286[0m
+[Train|TRAIN] 2019-07-12 16:08:31,750 > [37mEpoch 4 | Loss 1.8325[0m
+[Train|VAL] 2019-07-12 16:08:31,758 > [37mepoch : 4 || loss_val : 1.7550 || Accuracy: 0.3857[0m
+[Train|TRAIN] 2019-07-12 16:08:31,769 > [37mEpoch 5 | Loss 1.7707[0m
+[Train|VAL] 2019-07-12 16:08:31,777 > [37mepoch : 5 || loss_val : 1.6930 || Accuracy: 0.4286[0m
+[Train|TRAIN] 2019-07-12 16:08:31,789 > [37mEpoch 6 | Loss 1.7027[0m
+[Train|VAL] 2019-07-12 16:08:31,797 > [37mepoch : 6 || loss_val : 1.6272 || Accuracy: 0.4929[0m
+[Train|TRAIN] 2019-07-12 16:08:31,809 > [37mEpoch 7 | Loss 1.6945[0m
+[Train|VAL] 2019-07-12 16:08:31,817 > [37mepoch : 7 || loss_val : 1.5625 || Accuracy: 0.5286[0m
+[Train|TRAIN] 2019-07-12 16:08:31,829 > [37mEpoch 8 | Loss 1.5869[0m
+[Train|VAL] 2019-07-12 16:08:31,838 > [37mepoch : 8 || loss_val : 1.4944 || Accuracy: 0.5571[0m
+[Train|TRAIN] 2019-07-12 16:08:31,849 > [37mEpoch 9 | Loss 1.5870[0m
+[Train|VAL] 2019-07-12 16:08:31,857 > [37mepoch : 9 || loss_val : 1.4272 || Accuracy: 0.6571[0m
+[Train|TRAIN] 2019-07-12 16:08:31,869 > [37mEpoch 10 | Loss 1.4880[0m
+[Train|VAL] 2019-07-12 16:08:31,877 > [37mepoch : 10 || loss_val : 1.3567 || Accuracy: 0.7714[0m
+[Train|TRAIN] 2019-07-12 16:08:31,889 > [37mEpoch 11 | Loss 1.4745[0m
+[Train|VAL] 2019-07-12 16:08:31,897 > [37mepoch : 11 || loss_val : 1.2846 || Accuracy: 0.7857[0m
+[Train|TRAIN] 2019-07-12 16:08:31,908 > [37mEpoch 12 | Loss 1.3787[0m
+[Train|VAL] 2019-07-12 16:08:31,917 > [37mepoch : 12 || loss_val : 1.2075 || Accuracy: 0.7500[0m
+[Train|TRAIN] 2019-07-12 16:08:31,928 > [37mEpoch 13 | Loss 1.3097[0m
+[Train|VAL] 2019-07-12 16:08:31,937 > [37mepoch : 13 || loss_val : 1.1263 || Accuracy: 0.7643[0m
+[Train|TRAIN] 2019-07-12 16:08:31,949 > [37mEpoch 14 | Loss 1.2366[0m
+[Train|VAL] 2019-07-12 16:08:31,957 > [37mepoch : 14 || loss_val : 1.0417 || Accuracy: 0.8286[0m
+[Train|TRAIN] 2019-07-12 16:08:31,969 > [37mEpoch 15 | Loss 1.1677[0m
+[Train|VAL] 2019-07-12 16:08:31,977 > [37mepoch : 15 || loss_val : 0.9597 || Accuracy: 0.8357[0m
+[Train|TRAIN] 2019-07-12 16:08:31,989 > [37mEpoch 16 | Loss 1.1135[0m
+[Train|VAL] 2019-07-12 16:08:31,997 > [37mepoch : 16 || loss_val : 0.8773 || Accuracy: 0.8643[0m
+[Train|TRAIN] 2019-07-12 16:08:32,008 > [37mEpoch 17 | Loss 1.0397[0m
+[Train|VAL] 2019-07-12 16:08:32,017 > [37mepoch : 17 || loss_val : 0.7927 || Accuracy: 0.8643[0m
+[Train|TRAIN] 2019-07-12 16:08:32,028 > [37mEpoch 18 | Loss 0.9966[0m
+[Train|VAL] 2019-07-12 16:08:32,037 > [37mepoch : 18 || loss_val : 0.7038 || Accuracy: 0.8429[0m
+[Train|TRAIN] 2019-07-12 16:08:32,048 > [37mEpoch 19 | Loss 0.9544[0m
+[Train|VAL] 2019-07-12 16:08:32,057 > [37mepoch : 19 || loss_val : 0.6302 || Accuracy: 0.8429[0m
+[Train|TRAIN] 2019-07-12 16:08:32,068 > [37mEpoch 20 | Loss 0.8228[0m
+[Train|VAL] 2019-07-12 16:08:32,076 > [37mepoch : 20 || loss_val : 0.5645 || Accuracy: 0.8929[0m
+[Train|TRAIN] 2019-07-12 16:08:32,088 > [37mEpoch 21 | Loss 0.8059[0m
+[Train|VAL] 2019-07-12 16:08:32,096 > [37mepoch : 21 || loss_val : 0.5075 || Accuracy: 0.9214[0m
+[Train|TRAIN] 2019-07-12 16:08:32,108 > [37mEpoch 22 | Loss 0.7491[0m
+[Train|VAL] 2019-07-12 16:08:32,116 > [37mepoch : 22 || loss_val : 0.4613 || Accuracy: 0.9500[0m
+[Train|TRAIN] 2019-07-12 16:08:32,128 > [37mEpoch 23 | Loss 0.7170[0m
+[Train|VAL] 2019-07-12 16:08:32,137 > [37mepoch : 23 || loss_val : 0.4223 || Accuracy: 0.9714[0m
+[Train|TRAIN] 2019-07-12 16:08:32,150 > [37mEpoch 24 | Loss 0.5873[0m
+[Train|VAL] 2019-07-12 16:08:32,159 > [37mepoch : 24 || loss_val : 0.3868 || Accuracy: 0.9643[0m
+[Train|TRAIN] 2019-07-12 16:08:32,171 > [37mEpoch 25 | Loss 0.6080[0m
+[Train|VAL] 2019-07-12 16:08:32,179 > [37mepoch : 25 || loss_val : 0.3451 || Accuracy: 0.9714[0m
+[Train|TRAIN] 2019-07-12 16:08:32,191 > [37mEpoch 26 | Loss 0.6504[0m
+[Train|VAL] 2019-07-12 16:08:32,199 > [37mepoch : 26 || loss_val : 0.3119 || Accuracy: 0.9714[0m
+[Train|TRAIN] 2019-07-12 16:08:32,211 > [37mEpoch 27 | Loss 0.5634[0m
+[Train|VAL] 2019-07-12 16:08:32,219 > [37mepoch : 27 || loss_val : 0.2863 || Accuracy: 0.9714[0m
+[Train|TRAIN] 2019-07-12 16:08:32,231 > [37mEpoch 28 | Loss 0.5948[0m
+[Train|VAL] 2019-07-12 16:08:32,240 > [37mepoch : 28 || loss_val : 0.2653 || Accuracy: 0.9714[0m
+[Train|TRAIN] 2019-07-12 16:08:32,251 > [37mEpoch 29 | Loss 0.4615[0m
+[Train|VAL] 2019-07-12 16:08:32,260 > [37mepoch : 29 || loss_val : 0.2416 || Accuracy: 0.9643[0m
+[Train|TRAIN] 2019-07-12 16:08:32,272 > [37mEpoch 30 | Loss 0.5613[0m
+[Train|VAL] 2019-07-12 16:08:32,280 > [37mepoch : 30 || loss_val : 0.2171 || Accuracy: 0.9714[0m
+[Train|TRAIN] 2019-07-12 16:08:32,292 > [37mEpoch 31 | Loss 0.3875[0m
+[Train|VAL] 2019-07-12 16:08:32,300 > [37mepoch : 31 || loss_val : 0.2011 || Accuracy: 0.9714[0m
+[Train|TRAIN] 2019-07-12 16:08:32,311 > [37mEpoch 32 | Loss 0.4044[0m
+[Train|VAL] 2019-07-12 16:08:32,319 > [37mepoch : 32 || loss_val : 0.1881 || Accuracy: 0.9786[0m
+[Train|TRAIN] 2019-07-12 16:08:32,331 > [37mEpoch 33 | Loss 0.3805[0m
+[Train|VAL] 2019-07-12 16:08:32,339 > [37mepoch : 33 || loss_val : 0.1704 || Accuracy: 0.9857[0m
+[Train|TRAIN] 2019-07-12 16:08:32,351 > [37mEpoch 34 | Loss 0.5372[0m
+[Train|VAL] 2019-07-12 16:08:32,359 > [37mepoch : 34 || loss_val : 0.1506 || Accuracy: 0.9929[0m
+[Train|TRAIN] 2019-07-12 16:08:32,370 > [37mEpoch 35 | Loss 0.4363[0m
+[Train|VAL] 2019-07-12 16:08:32,378 > [37mepoch : 35 || loss_val : 0.1365 || Accuracy: 0.9929[0m
+[Train|TRAIN] 2019-07-12 16:08:32,389 > [37mEpoch 36 | Loss 0.3306[0m
+[Train|VAL] 2019-07-12 16:08:32,398 > [37mepoch : 36 || loss_val : 0.1290 || Accuracy: 0.9857[0m
+[Train|TRAIN] 2019-07-12 16:08:32,409 > [37mEpoch 37 | Loss 0.3534[0m
+[Train|VAL] 2019-07-12 16:08:32,417 > [37mepoch : 37 || loss_val : 0.1268 || Accuracy: 0.9786[0m
+[Train|TRAIN] 2019-07-12 16:08:32,429 > [37mEpoch 38 | Loss 0.5472[0m
+[Train|VAL] 2019-07-12 16:08:32,437 > [37mepoch : 38 || loss_val : 0.1230 || Accuracy: 0.9786[0m
+[Train|TRAIN] 2019-07-12 16:08:32,449 > [37mEpoch 39 | Loss 0.2741[0m
+[Train|VAL] 2019-07-12 16:08:32,457 > [37mepoch : 39 || loss_val : 0.1161 || Accuracy: 0.9857[0m
+[Train|TRAIN] 2019-07-12 16:08:32,468 > [37mEpoch 40 | Loss 0.3436[0m
+[Train|VAL] 2019-07-12 16:08:32,476 > [37mepoch : 40 || loss_val : 0.1068 || Accuracy: 0.9857[0m
+[Train|TRAIN] 2019-07-12 16:08:32,493 > [37mEpoch 41 | Loss 0.3941[0m
+[Train|VAL] 2019-07-12 16:08:32,502 > [37mepoch : 41 || loss_val : 0.0949 || Accuracy: 0.9929[0m
+[Train|TRAIN] 2019-07-12 16:08:32,513 > [37mEpoch 42 | Loss 0.3959[0m
+[Train|VAL] 2019-07-12 16:08:32,521 > [37mepoch : 42 || loss_val : 0.0852 || Accuracy: 0.9929[0m
+[Train|TRAIN] 2019-07-12 16:08:32,532 > [37mEpoch 43 | Loss 0.3235[0m
+[Train|VAL] 2019-07-12 16:08:32,541 > [37mepoch : 43 || loss_val : 0.0777 || Accuracy: 0.9929[0m
+[Train|TRAIN] 2019-07-12 16:08:32,552 > [37mEpoch 44 | Loss 0.2632[0m
+[Train|VAL] 2019-07-12 16:08:32,560 > [37mepoch : 44 || loss_val : 0.0724 || Accuracy: 0.9929[0m
+[Train|TRAIN] 2019-07-12 16:08:32,572 > [37mEpoch 45 | Loss 0.2872[0m
+[Train|VAL] 2019-07-12 16:08:32,580 > [37mepoch : 45 || loss_val : 0.0677 || Accuracy: 1.0000[0m
+[Train|TRAIN] 2019-07-12 16:08:32,591 > [37mEpoch 46 | Loss 0.2189[0m
+[Train|VAL] 2019-07-12 16:08:32,599 > [37mepoch : 46 || loss_val : 0.0635 || Accuracy: 1.0000[0m
+[Train|TRAIN] 2019-07-12 16:08:32,611 > [37mEpoch 47 | Loss 0.3038[0m
+[Train|VAL] 2019-07-12 16:08:32,619 > [37mepoch : 47 || loss_val : 0.0587 || Accuracy: 1.0000[0m
+[Train|TRAIN] 2019-07-12 16:08:32,631 > [37mEpoch 48 | Loss 0.2343[0m
+[Train|VAL] 2019-07-12 16:08:32,639 > [37mepoch : 48 || loss_val : 0.0545 || Accuracy: 1.0000[0m
+[Train|TRAIN] 2019-07-12 16:08:32,650 > [37mEpoch 49 | Loss 0.2819[0m
+[Train|VAL] 2019-07-12 16:08:32,658 > [37mepoch : 49 || loss_val : 0.0512 || Accuracy: 1.0000[0m
+[Train|INFO] 2019-07-12 16:08:32,658 > [37mOptimization Finished![0m
+[Train|INFO] 2019-07-12 16:08:32,658 > [37mTotal time elapsed: 1.2772s[0m
+[Train|TEST] 2019-07-12 16:08:32,666 > [37mFinal Accuracy is = 0.7810192023633677[0m
+[Train|INFO] 2019-07-12 16:08:32,666 > [37mDone![0m
+[Train|ERROR] 2019-07-12 16:16:48,855 > [31mTraceback (most recent call last):
+  File "/home/jiyoungpark/gcn_test/pygeo/net.py", line 68, in run_network
+    use_package = use_package).to(device)
+  File "/home/jiyoungpark/gcn_test/pygeo/models/GCNmodel.py", line 30, in __init__
+    self.conv1 = GCN_lib(in_features, dim_hidden, bias = bias)
+  File "/home/jiyoungpark/anaconda3/envs/gcn/lib/python3.6/site-packages/torch/nn/modules/module.py", line 565, in __setattr__
+    "cannot assign module before Module.__init__() call")
+AttributeError: cannot assign module before Module.__init__() call
+[0m

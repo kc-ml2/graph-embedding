@@ -71,7 +71,7 @@
         },
         "Train": {
             "level": "DEBUG",
-            "handlers": ["TrainConsole", "TrainFileHandler"],
+            "handlers": ["TrainConsole"],
             "propagate": "no"
         },
         "Val": {
