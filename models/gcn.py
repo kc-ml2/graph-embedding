@@ -1,15 +1,15 @@
+# for model
 import torch
-from torch_geometric.data import Data
 import numpy as np
-import torch_geometric.utils
 import torch
-from torch_geometric.nn import MessagePassing
-from torch_geometric.utils import add_self_loops, degree
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.nn.parameter import Parameter
+
+# for matrix parsing
 from utils.utils import edge_to_adj
 import math
+
+# for debug
 import pdb
 
 """
@@ -26,8 +26,8 @@ import pdb
 
 class GCNConv(nn.Module):
 
-    def __init__(self, in_channels, out_channels, bias = True):
-        super(GCNConv, self).__init__()
+    def __init__(self, in_channels: int, out_channels: int, bias = True):
+        super().__init__()
 
         # in, out, bias, weight dim
         self.in_channels = in_channels
@@ -46,7 +46,7 @@ class GCNConv(nn.Module):
         if self.bias is not None:
             self.bias.data.uniform_(-stdv, stdv)
 
-    def forward(self, input, edge_index):
+    def forward(self, input: torch.Tensor, edge_index: torch.Tensor) -> torch.Tensor:
         # X * W
         support = torch.mm(input, self.weight)
         # Get adjacency matrix

@@ -1,18 +1,20 @@
+# for overall network
 import argparse
 import setting
 import torch
 import torch.optim as optim
 from models.GCNmodel import GCNNet
-from torch_geometric.datasets import PPI
-from torch_geometric.datasets import CoMA
-from torch_geometric.datasets import Planetoid
 import torch.nn.functional as F
 import numpy as np
 from torch_geometric.data import DataLoader
+from utils import utils
+from utils.datagenerator import datagenerator
+
+# for print
 import time
 import traceback
-from utils import utils
-import tensorboardX
+
+# for debug
 import pdb
 
 """
@@ -36,13 +38,24 @@ def run_network(args, logger):
     n_hidden_layer = args.n_hidden_layer; lr = args.lr; 
     weight_decay = args.weight_decay; loss_ft = args.loss_ft
     epochs = args.epochs; batch_size = args.batch_size; bias = args.bias
-    data_name = args.data
+    data_class = args.data; data_name = args.data_name
     use_package = args.use_package_implementation
     del args
 
     # Read the Data
+    dataset = datagenerator(data_class, dataname = data_name)
+    train_dataset = dataset.train_dataset
+    val_dataset = dataset.val_dataset
+    test_dataset = dataset.test_dataset
+    data_name = dataset.data_name
+    if data_name == "PPI":
+        assert loss_ft == "bce" or  loss_ft == "mse", "PPI cannot work with other losses"
+    elif data_name == "Cora":
+        assert loss_ft == "nll" or  loss_ft == "cross_entropy", "PPI cannot work with other losses"
+    del dataset
     try:
         # Only internal datasets of pyG are available currently
+        """
         if data_name == 'PPI':
             assert loss_ft == 'bce', "PPI only works with bce loss"
             train_dataset = PPI(root = setting.DATA_PATH, split = "train")
@@ -58,7 +71,7 @@ def run_network(args, logger):
         else:
             # TODO: Implement the Outer Source of data
             raise IOError('No Data')
-
+        """
         # Input of Model
         if model == "GCN":
             # Run GCN
@@ -115,7 +128,7 @@ def run_network(args, logger):
     Train the model
 """
 
-def train(epoch, batch, model, loss_ft, optimizer, logger, is_full_data = False):
+def train(epoch, batch, model, loss_ft, optimizer, logger, is_full_data = False) -> None:
     model.train()
     optimizer.zero_grad()
 
@@ -158,7 +171,7 @@ def train(epoch, batch, model, loss_ft, optimizer, logger, is_full_data = False)
     Validate the Model
 """
 
-def val(epoch, batch, model, loss_ft, logger, is_full_data = False):
+def val(epoch, batch, model, loss_ft, logger, is_full_data = False) -> None:
     model.eval()
     # put into model
     log_prob = model(batch.x, batch.edge_index)
@@ -193,7 +206,7 @@ def val(epoch, batch, model, loss_ft, logger, is_full_data = False):
 """
     Test the Model
 """
-def test(model, test_data, device, logger):
+def test(model, test_data, device, logger) -> None:
 
     # merge test data & model data
     output = []

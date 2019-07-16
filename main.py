@@ -1,8 +1,15 @@
+# Read config
 import argparse
 import setting
 import json
+
+# Run model
 from net import run_network
+
+# Logging
 from utils import logger
+
+# for debug
 import pdb
 
 def main():

@@ -1,13 +1,26 @@
+"""
+    Logger class 
+    by: kyhoon
+"""
+
 import logging
 import logging.config
 import json
 from setting import *
 import os, sys, os.path
+
+# for tensorboard
 from tensorboardX import SummaryWriter
-import pdb
 from pathlib import Path
-import csv
+
+# for print
 from termcolor import colored
+
+# for flush
+import csv
+
+# for debug
+import pdb
 
 class Logger:
 

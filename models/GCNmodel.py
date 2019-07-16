@@ -1,9 +1,15 @@
+# for model
 from models.gcn import GCNConv
 import torch.nn as nn
 import torch.nn.functional as F
+import torch
 from torch_geometric.nn import GCNConv as GCN_lib
-import pdb
+
+# for print
 import traceback
+
+# for debug
+import pdb
 
 """
     Unweighted Graph GCN Implementation
@@ -19,7 +25,8 @@ import traceback
 class GCNNet(nn.Module):
 
 
-    def __init__(self, in_features, dim_hidden, n_hidden_layer, out_class, bias, use_package):
+    def __init__(self, in_features: int, dim_hidden: int, n_hidden_layer: int, \
+        out_class: int, bias: bool, use_package: bool):
         assert n_hidden_layer >= 2, "Number of Hidden Layer in GCN must be at least 2"
         super().__init__()
 
@@ -33,7 +40,7 @@ class GCNNet(nn.Module):
             self.inner_conv = GCNConv(dim_hidden, dim_hidden, bias = bias)
         self.n_hidden_layer = n_hidden_layer
 
-    def forward(self, x, edge_index):
+    def forward(self, x: torch.Tensor, edge_index: torch.Tensor) -> torch.Tensor:
         # send input to hidden layer
         x = self.conv1(x, edge_index)
         # activate
