@@ -43,6 +43,7 @@ def run_network(args, logger):
     del args
 
     # Read the Data
+    # Only internal datasets of pyG are available currently
     dataset = datagenerator(data_class, dataname = data_name)
     train_dataset = dataset.train_dataset
     val_dataset = dataset.val_dataset
@@ -54,24 +55,6 @@ def run_network(args, logger):
         assert loss_ft == "nll" or  loss_ft == "cross_entropy", "Cora cannot work with other losses"
     del dataset
     try:
-        # Only internal datasets of pyG are available currently
-        """
-        if data_name == 'PPI':
-            assert loss_ft == 'bce', "PPI only works with bce loss"
-            train_dataset = PPI(root = setting.DATA_PATH, split = "train")
-            val_dataset = PPI(root = setting.DATA_PATH, split = "val")
-            test_dataset = PPI(root = setting.DATA_PATH, split = "test")
-            logger.log("The PPI Data may not have been fully optimized yet", "WARNING")
-        # Default
-        elif data_name == 'Cora':
-            train_dataset = Planetoid(setting.DATA_PATH, name = 'Cora')
-            val_dataset = train_dataset
-            test_dataset = train_dataset
-
-        else:
-            # TODO: Implement the Outer Source of data
-            raise IOError('No Data')
-        """
         # Input of Model
         if model == "GCN":
             # Run GCN
