@@ -51,7 +51,7 @@ def run_network(args, logger):
     if data_name == "PPI":
         assert loss_ft == "bce" or  loss_ft == "mse", "PPI cannot work with other losses"
     elif data_name == "Cora":
-        assert loss_ft == "nll" or  loss_ft == "cross_entropy", "PPI cannot work with other losses"
+        assert loss_ft == "nll" or  loss_ft == "cross_entropy", "Cora cannot work with other losses"
     del dataset
     try:
         # Only internal datasets of pyG are available currently
