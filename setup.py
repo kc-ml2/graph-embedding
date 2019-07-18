@@ -8,7 +8,9 @@ setup_requires = [
 install_requires = [
     'numpy',
     'pytorch == 1.1',
-    'torch-geometric == 1.3.0'
+    'torch-geometric == 1.3.0',
+    'neo4j',
+    'py2neo'
 ]
 
 setup(

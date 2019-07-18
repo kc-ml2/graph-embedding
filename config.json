@@ -2,18 +2,19 @@
     "DEFAULT": {
       "cuda": true,
       "seed": 42,
-      "epochs": 50,
+      "epochs": 25,
       "lr": 0.01,
-      "loss_ft": "nll",
+      "loss_ft": "bce",
       "weight_decay": 5e-4,
       "dim_hidden": 16,
       "n_hidden_layer": 2,
       "batch_size": 1,
       "bias": true,
-      "data": "Cora",
+      "data": "PPI",
+      "data_name": null,
       "model": "GCN",
       "use_package_implementation": true,
-      "logger_option": "Train"
+      "logger_option": "Val"
     },
 
     "RELEASE": {

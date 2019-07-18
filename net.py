@@ -4,13 +4,16 @@ import setting
 import torch
 import torch.optim as optim
 from models.GCNmodel import GCNNet
-import torch.nn.functional as F
 import numpy as np
 from torch_geometric.data import DataLoader
-from utils import utils
 from utils.datagenerator import datagenerator
 
-# for print
+#processing the network 
+from processing.train import train
+from processing.val import val
+from processing.test import test
+
+# for logging
 import time
 import traceback
 
@@ -19,7 +22,7 @@ import pdb
 
 """
     function that run network and learn
-    Composed by reading data / setting model / train / val
+    Composed by reading data / setting model / train / val / test
 """
 
 def run_network(args, logger):
@@ -108,109 +111,6 @@ def run_network(args, logger):
         logger.log(traceback.format_exc(), "ERROR")
 
 """
-    Train the model
-"""
-
-def train(epoch, batch, model, loss_ft, optimizer, logger, is_full_data = False) -> None:
-    model.train()
-    optimizer.zero_grad()
-
-    # run model
-    log_prob = model(batch.x, batch.edge_index)
-    
-    # Split the data if data is not splitted into train and val
-    if is_full_data:
-        log_prob = log_prob[batch.train_mask]
-        label = batch.y[batch.train_mask]
-    else:
-        label = batch.y
-    try:
-        # Select Loss ft
-        if loss_ft == 'nll':
-            loss = F.nll_loss(log_prob, label.long())
-        elif loss_ft == 'cross_entropy':
-            loss = F.cross_entropy(log_prob, label.long())
-        elif loss_ft == 'mse':
-            loss = F.mse_loss(log_prob, label)
-        elif loss_ft == 'bce':
-            # bce loss have to be parsed to 0~1
-            log_prob = torch.exp(log_prob)
-            loss = F.binary_cross_entropy(log_prob, label)
-        else:
-            raise NotImplementedError('Not implemented')
-
-        # Back propagate and learn
-        loss.backward()
-        optimizer.step()
-
-        #print losses
-        logger.log("Epoch {} | Loss {:.4f}".format(\
-                epoch, loss.item()), "TRAIN")
-    
-    except Exception:
-        logger.log(traceback.format_exc(), "ERROR")
-
-"""
-    Validate the Model
-"""
-
-def val(epoch, batch, model, loss_ft, logger, is_full_data = False) -> None:
-    model.eval()
-    # put into model
-    log_prob = model(batch.x, batch.edge_index)
-
-    # split data if data is not splitted into train and val
-    if is_full_data:
-        log_prob = log_prob[batch.train_mask]
-        label = batch.y[batch.train_mask]
-    else:
-        label = batch.y
-    try:
-        # Select loss ft
-        if loss_ft == "nll":
-            loss_val = F.nll_loss(log_prob, label.long())
-        elif loss_ft == "cross_entropy":
-            loss_val = F.cross_entropy(log_prob, label.long())
-        elif loss_ft == "mse":
-            loss_val = F.mse_loss(log_prob, label)
-        elif loss_ft == 'bce':
-            # bce loss requires additional parsing to 0~1
-            log_prob = torch.exp(log_prob)
-            loss_val = F.binary_cross_entropy(log_prob, label)
-        else:
-            raise NotImplementedError('Not Implemeted')
-        # Calculate accuracy
-        acc = utils.accuracy(log_prob, label)
-        # pdb.set_trace()
-        logger.log('epoch : {} || loss_val : {:.4f} || Accuracy: {:.4f}'.format(epoch, loss_val, acc), "VAL")
-    except Exception:
-        logger.log(traceback.format_exc(), "ERROR")
-
-"""
-    Test the Model
-"""
-def test(model, test_data, device, logger) -> None:
-
-    # merge test data & model data
-    output = []
-    label = []
-    for data in test_data:
-        data.to(device)
-        log_p = model(data.x, data.edge_index)
-        output.append(log_p)
-        label.append(data.y)
-
-    # prediction
-    result = torch.cat(output, dim = 0)
-    result = torch.sigmoid(result)
-    # answer
-    answer = torch.cat(label, dim = 0)
-    
-    # calculate accuracy
-    acc = utils.accuracy(result, answer)
-    logger.log("Final Accuracy is = {}".format(acc), "TEST")
-"""
-
     for epoch:
         for train_batch in loader1:
             train(train_batch):
