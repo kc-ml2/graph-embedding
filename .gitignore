@@ -9,7 +9,6 @@
 # Ignore some uncompleted python file
 dataloader.py
 tmp.py
-test.py
 DBConnection.py
 
 #Ignore ide setting

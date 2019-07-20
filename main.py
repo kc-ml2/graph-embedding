@@ -36,6 +36,9 @@ def main():
     # Model to Use
     parser.add_argument('--model', type = str, default = 'GCN', help = 'GraphML model to use')
 
+    # Run whole process? or train/val/test seperate?
+    parser.add_argument('--process', type = str, default = 'whole', help = 'train save only trained model. test run the saved model')
+
     #Additional Option
     parser.add_argument('--use_package_implementation', action = 'store_true', help = 'Using Implementation from package or own implementation?')
 
@@ -44,7 +47,7 @@ def main():
     # Read config written by json file
     with open('config.json', 'r') as f:
         config = json.load(f)
-    for key, item in config['RELEASE'].items():
+    for key, item in config['DEFAULT'].items():
         setattr(args, key, item)
 
     #Setting the Logger

@@ -42,18 +42,6 @@ class datagenerator:
             """
             pass
             
-
-
-        #assert DataSource in ["Package", "DB", "External"], "DataSource must be 'Package' / 'DB' / 'External'"
-        #m = importlib.import_module("torch_geometric.datasets")
-        #data = getattr(m, dataset)
-        #data()
-        #self.train_dataset = None
-        #self.val_dataset = None
-        #self.test_dataset = None
-
-
-    #def load_inpackage_data(self, class)
     def get_data(self, dataset_NameClassTuple, **kwargs):
         try:
             dataset_name = dataset_NameClassTuple[0]

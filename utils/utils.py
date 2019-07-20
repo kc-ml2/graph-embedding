@@ -19,6 +19,7 @@ def accuracy(log_prob, labels):
         correct = (pred == labels).float().sum()
     else:
         _, pred = log_prob.max(dim=1)
+        #pdb.set_trace()
         correct = float (pred.eq(labels).sum().item())
     return correct / len(labels)
 

@@ -17,6 +17,11 @@ from processing.test import test
 import time
 import traceback
 
+# for saving
+import os.path
+from pathlib import Path
+import io
+
 # for debug
 import pdb
 
@@ -42,6 +47,7 @@ def run_network(args, logger):
     weight_decay = args.weight_decay; loss_ft = args.loss_ft
     epochs = args.epochs; batch_size = args.batch_size; bias = args.bias
     data_class = args.data; data_name = args.data_name
+    process = args.process
     use_package = args.use_package_implementation
     del args
 
@@ -84,28 +90,53 @@ def run_network(args, logger):
         # set optimizer
         optimizer = optim.Adam(params = model_running.parameters(), lr = lr, weight_decay = weight_decay)
 
-        # Loop the epoch
-        for epoch in range(epochs):
+        if process != 'test':
+            # Loop the epoch
+            for epoch in range(epochs):
 
-            # train
-            for train_batch in train_loader:
-                train_batch.to(device)
-                train(epoch = epoch, batch = train_batch, model = model_running,\
-                     loss_ft = loss_ft, optimizer = optimizer, logger = logger, is_full_data = isfull)
+                # train
+                for train_batch in train_loader:
+                    train_batch.to(device)
+                    train(epoch = epoch, batch = train_batch, model = model_running,\
+                         loss_ft = loss_ft, optimizer = optimizer, logger = logger, is_full_data = isfull)
+                # val
+                for val_batch in val_loader:
+                    val_batch.to(device)
+                    val(epoch = epoch, batch = val_batch, model = model_running, \
+                        loss_ft = loss_ft, logger = logger, is_full_data = isfull)
+                    
+            # Finish the Model Training
+            logger.log("Optimization Finished!", "INFO")
+            logger.log("Total time elapsed: {:.4f}s".format(time.time() - start_time), "INFO")
 
-            # val
-            for val_batch in val_loader:
-                val_batch.to(device)
-                val(epoch = epoch, batch = val_batch, model = model_running, \
-                    loss_ft = loss_ft, logger = logger, is_full_data = isfull)
+            if process == 'whole':
+            # Test
+                test(model = model_running, test_data = test_dataset, device = device, logger = logger)
+            
+            # Save model
+            elif process == 'train':
+                Path(os.path.join(setting.MODEL_SAVED_PATH, data_name)).mkdir(parents = True, exist_ok = True)
+                filename = os.path.join(setting.MODEL_SAVED_PATH, data_name, "trained.pt")
+                torch.save(model_running.state_dict(), filename)
 
-        # Finish the Model Training
-        logger.log("Optimization Finished!", "INFO")
-        logger.log("Total time elapsed: {:.4f}s".format(time.time() - start_time), "INFO")
-
-        # Test
-        test(model = model_running, test_data = test_dataset, device = device, logger = logger)
+            # Error
+            else:
+                logger.log("invalid input for args.process", "ERROR")
+        
+        elif process == "test":
+            try:
+                filename = os.path.join(setting.MODEL_SAVED_PATH, data_name ,"trained.pt")
+                if os.path.isfile(filename):
+                    model_running.load_state_dict(torch.load(filename))
+                    test(model = model_running, test_data = test_dataset, device = device, logger = logger)
+                else:
+                    raise IOError('No Trained Model')
+                
+            except Exception:
+                logger.log(traceback.format_exc(), "ERROR")
+        
         logger.log("Done!", 'INFO')
+                
 
     except Exception:
         logger.log(traceback.format_exc(), "ERROR")
