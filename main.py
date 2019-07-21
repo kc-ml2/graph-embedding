@@ -13,9 +13,10 @@ from utils import logger
 import pdb
 
 def main():
-    
     # Read argument
     parser = argparse.ArgumentParser()
+    """
+    Explanation for arguments
 
     # device options
     parser.add_argument('--cuda', action = 'store_true', help = 'using GPU?')
@@ -31,7 +32,8 @@ def main():
     parser.add_argument('--batch_size', type = int, default = 1)
     parser.add_argument('--bias', action = 'store_true', help = 'whether to use bias')
     # Select Data
-    parser.add_argument('--data', type = str, default = 'default', help = 'dataset to use')
+    parser.add_argument('--data', type = str, default = 'Planetoid', help = 'dataset to use')
+    #parser.add_argument('--data_name', type = str, default = 'Cora', help = 'which data to use?')
 
     # Model to Use
     parser.add_argument('--model', type = str, default = 'GCN', help = 'GraphML model to use')
@@ -41,7 +43,7 @@ def main():
 
     #Additional Option
     parser.add_argument('--use_package_implementation', action = 'store_true', help = 'Using Implementation from package or own implementation?')
-
+    """
     args = parser.parse_args([])
 
     # Read config written by json file
@@ -49,7 +51,7 @@ def main():
         config = json.load(f)
     for key, item in config['DEFAULT'].items():
         setattr(args, key, item)
-
+    
     #Setting the Logger
     Logger = logger.Logger()
     Logger.add_level("TRAIN", 11)

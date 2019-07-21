@@ -50,6 +50,7 @@ def run_network(args, logger):
     process = args.process
     use_package = args.use_package_implementation
     del args
+    #pdb.set_trace()
 
     # Read the Data
     # Only internal datasets of pyG are available currently
